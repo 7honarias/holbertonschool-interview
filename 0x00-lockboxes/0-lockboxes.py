@@ -1,14 +1,22 @@
 #!/usr/bin/python3
 
 def canUnlockAll(boxes):
-    keys = set([0])
-    for i in range(len(boxes)):
-        print(i)
-        print(keys)
-        if i in keys:
-            for key in boxes[i]:
-                keys.add(key)
-        else:
-            return False
-    return True
+    keys = {0: True}
+    n_boxes = len(boxes)
+    while(True):
+        count = len(keys)
 
+        for i in range(len(boxes)):
+            if boxes[i] and keys.get(i, False):
+                for j in boxes[i]:
+                    if j < n_boxes:
+                        keys[j] = True
+                    boxes[i] = None
+
+        if not(len(keys) > count):
+            break
+
+    if count == len(boxes):
+        return True
+
+    return False
