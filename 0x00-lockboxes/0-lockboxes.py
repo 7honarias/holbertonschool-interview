@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """boxes module"""
 
+
 def canUnlockAll(boxes):
     """boxes key"""
     keys = {0: True}
