@@ -3,35 +3,33 @@
 #include "lists.h"
 
 /**
- * insert_node - prints all elements of a listint_t list
- * @h: pointer to head of list
- * @number: number to insert
- * Return: new node or null
+ * insert_node - inserts new node to linked list
+ * @head: head of singly linked list
+ * @number: value in singly linked list
+ *
+ * Return: the address of the new node, or NULL if it failed
  */
 listint_t *insert_node(listint_t **head, int number)
 {
-    listint_t *new;
-    const listint_t *current;
+	listint_t *new_node, *tmp1 = *head, *tmp2;
 
-    current = *head;
-    new = malloc(sizeof(listint_t));
-    if (new == NULL)
-        return (NULL);
-    
-    new->n = number;
-    new->next = NULL;
-    if (current == NULL)
-        return (new);
-    
-    while (current != NULL)
-    {
-        if (number > current->n && number < current->next->n) {
-            break;
-        }
-        current = current->next;
-    }
-    current->next = new;
-    new->next = current->next;
+	if (!head)
+		return (NULL);
+	new_node = malloc(sizeof(listint_t));
+	if (!new_node)
+		return (NULL);
 
-    return (new);
+	new_node->n = number;
+	if (!tmp1 || tmp1->n >= number)
+	{
+		new_node->next = tmp1, *head = new_node;
+		return (new_node);
+	}
+
+	tmp2 = tmp1->next;
+	while (tmp1 && tmp2 && (tmp2->n < number))
+		tmp1 = tmp1->next, tmp2 = tmp1->next;
+
+	tmp1->next = new_node, new_node->next = tmp2;
+	return (new_node);
 }
