@@ -2,6 +2,7 @@
 
 """ Operations min """
 
+
 def minOperations(n):
     """
     If n is impossible to achieve, returns 0
